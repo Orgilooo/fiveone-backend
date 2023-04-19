@@ -39,10 +39,10 @@ const getUsers = async (request, response, pool) => {
 
 const insertUser = async (request, response, pool) => {
   try {
-    const { username, firstname, lastname, password } = request.body;
+    const { firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender } = request.body;
     await pool.query(
-      "INSERT INTO users (username, firstname, lastname, password) values ($1, $2, $3, $4)",
-      [username, firstname, lastname, password]
+      "INSERT INTO users (firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+      [firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender]
     );
     return response.status(200).json({
       message: "success",
@@ -57,10 +57,10 @@ const insertUser = async (request, response, pool) => {
 
 const updateUser = async (request, response, pool) => {
   try {
-    const { username, firstname, lastname, password, id } = request.body;
+    const { firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender, id } = request.body;
     await pool.query(
-      "UPDATE users SET username=$1, firstname=$2, lastname=$3, password=$4 where id = $5",
-      [username, firstname, lastname, password, id]
+      "UPDATE users SET firstname=COALESCE($1, firstname), lastname=COALESCE($2, lastname), username=COALESCE($3, username), email=COALESCE($4, email), phone_number=COALESCE($5, phone_number), password=COALESCE($6, password), bank_account=COALESCE($7, bank_account), created_day=COALESCE($8, created_day), gender=COALESCE($9, gender), where id = $10",
+      [firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender, id]
     );
     return response.status(200).json({
       message: "success",

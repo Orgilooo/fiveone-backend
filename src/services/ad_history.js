@@ -3,12 +3,11 @@ const { logger } = require("../common/log");
 
 // postgresql сонгосон бол доорх мөрийн uncomment
 const {
-  getUsers,
-  insertUser,
-  updateUser,
-  deleteUser,
-  login,
-} = require("../logic/admin");
+  getAd_history,
+  insertAd_history,
+  updateAd_history,
+  deleteAd_history
+} = require("../logic/ad_history");
 
 module.exports = function (app, connection) {
   /**
@@ -18,53 +17,43 @@ module.exports = function (app, connection) {
    * DELETE - Устгахад ашиглана => app.delete()
    */
 
-  app.post("/api/login", async (req, res) => {
-    try {
-      logger.info(`${req.ip} /api/login [POST]`);
-
-      login(req, res, connection);
-    } catch (err) {
-      logger.error(`${req.ip} ${err}`);
-      res.status(500).json({ error: err.message });
-    }
-  });
 
   // endpoints
-  app.get("/api/user", isAuth, async (req, res) => {
+  app.get("/api/ad_history", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /user [get]`);
+      logger.info(`${req.ip} /ad_history [get]`);
 
-      getUsers(req, res, connection);
+      getAd_history(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });
     }
   });
 
-  app.post("/api/user", isAuth, async (req, res) => {
+  app.post("/api/ad_history", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /user [post]`);
-      insertUser(req, res, connection);
+      logger.info(`${req.ip} /ad_history [post]`);
+      insertAd_history(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });
     }
   });
 
-  app.put("/api/user", isAuth, async (req, res) => {
+  app.put("/api/ad_history", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /user [put]`);
-      updateUser(req, res, connection);
+      logger.info(`${req.ip} /ad_history [put]`);
+      updateAd_history(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });
     }
   });
 
-  app.delete("/api/user", isAuth, async (req, res) => {
+  app.delete("/api/ad_history", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /user [delete]`);
-      deleteUser(req, res, connection);
+      logger.info(`${req.ip} /ad_history [delete]`);
+      deleteAd_history(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });

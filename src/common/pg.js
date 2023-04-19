@@ -1,5 +1,6 @@
 require("dotenv").config();
 const Pool = require("pg").Pool;
+const { logger } = require("./log");
 
 function createConnection() {
   const connection = new Pool({
