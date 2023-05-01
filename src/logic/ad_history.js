@@ -37,8 +37,8 @@ const updateAd_history = async (request, response, pool) => {
   try {
     const { user_id, ad_id, id } = request.body;
     await pool.query(
-      "UPDATE ad_history SET user_id=COALESCE($1, user_id), ad_id=COALESCE($2, ad_id), where id = $3",
-      [ user_id, ad_id ]
+      "UPDATE ad_history SET user_id=COALESCE($1, user_id), ad_id=COALESCE($2, ad_id) where id = $3",
+      [ user_id, ad_id, id ]
     );
     return response.status(200).json({
       message: "success",

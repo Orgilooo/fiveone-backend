@@ -4,7 +4,7 @@ const { logger } = require("./log");
 
 const calcToken = (decoded) => {
   let token = jwt.sign({ id: decoded.id }, process.env.TOKEN_SECRET, {
-    expiresIn: process.env.TOKEN_EXPIRE_MINUTE + "m",
+    expiresIn: process.env.TOKEN_EXPIRE_MINUTE,
   });
   return token;
 };

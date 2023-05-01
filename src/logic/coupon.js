@@ -37,8 +37,8 @@ const updateCoupon = async (request, response, pool) => {
   try {
     const { company_id, category_id, coupon_limit, free, start_date, status, img, description, id } = request.body;
     await pool.query(
-      "UPDATE coupon SET company_id=COALESCE($1, company_id), category_id=COALESCE($2, category_id), coupon_id=COALESCE($3, coupon_id), free=COALESCE($4, free), start_date=COALESCE(5, start_date), status=COALESCE($6, status), img=COALESCE($7, img), description=COALESCE($8, description), where id = $9 ",
-      [ company_id, category_id, coupon_limit, free, start_date, status, img, description ]
+      "UPDATE coupon SET company_id=COALESCE($1, company_id), category_id=COALESCE($2, category_id), coupon_limit=COALESCE($3, coupon_limit), free=COALESCE($4, free), start_date=COALESCE($5, start_date), status=COALESCE($6, status), img=COALESCE($7, img), description=COALESCE($8, description) where id = $9 ",
+      [ company_id, category_id, coupon_limit, free, start_date, status, img, description, id ]
     );
     return response.status(200).json({
       message: "success",

@@ -6,7 +6,7 @@ const login = async (request, response, pool) => {
     const { username, password } = request.body;
 
     const result = await pool.query(
-      "SELECT * FROM users WHERE username = $1 and password = $2",
+      "SELECT * FROM users WHERE user_name = $1 and password = $2",
       [username, password]
     );
 
@@ -39,10 +39,10 @@ const getUsers = async (request, response, pool) => {
 
 const insertUser = async (request, response, pool) => {
   try {
-    const { firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender } = request.body;
+    const { first_name, last_name, user_name, email, phone_number, password, bank_account, created_day, gender } = request.body;
     await pool.query(
-      "INSERT INTO users (firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
-      [firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender]
+      "INSERT INTO users (first_name, last_name, user_name, email, phone_number, password, bank_account, created_day, gender) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+      [first_name, last_name, user_name, email, phone_number, password, bank_account, created_day, gender]
     );
     return response.status(200).json({
       message: "success",
@@ -57,10 +57,10 @@ const insertUser = async (request, response, pool) => {
 
 const updateUser = async (request, response, pool) => {
   try {
-    const { firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender, id } = request.body;
+    const { first_name, last_name, user_name, email, phone_number, password, bank_account, created_day, gender, id } = request.body;
     await pool.query(
-      "UPDATE users SET firstname=COALESCE($1, firstname), lastname=COALESCE($2, lastname), username=COALESCE($3, username), email=COALESCE($4, email), phone_number=COALESCE($5, phone_number), password=COALESCE($6, password), bank_account=COALESCE($7, bank_account), created_day=COALESCE($8, created_day), gender=COALESCE($9, gender), where id = $10",
-      [firstname, lastname, username, email, phone_number, password, bank_account, created_day, gender, id]
+      "UPDATE users SET firstname=COALESCE($1, firstname), lastname=COALESCE($2, lastname), username=COALESCE($3, username), email=COALESCE($4, email), phone_number=COALESCE($5, phone_number), password=COALESCE($6, password), bank_account=COALESCE($7, bank_account), created_day=COALESCE($8, created_day), gender=COALESCE($9, gender) where id = $10",
+      [first_name, last_name, user_name, email, phone_number, password, bank_account, created_day, gender, id]
     );
     return response.status(200).json({
       message: "success",

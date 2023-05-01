@@ -37,7 +37,7 @@ const updateCategories = async (request, response, pool) => {
   try {
     const { name, description, id } = request.body;
     await pool.query(
-      "UPDATE categories SET name=COALESCE($1, name), description=COALESCE($2, description), where id = $3",
+      "UPDATE categories SET name=COALESCE($1, name), description=COALESCE($2, description) where id = $3",
       [ name, description, id]
     );
     return response.status(200).json({
