@@ -3,12 +3,11 @@ const { logger } = require("../common/log");
 
 // postgresql сонгосон бол доорх мөрийн uncomment
 const {
-  getCompany,
-  insertCompany,
-  updateCompany,
-  deleteCompany,
-  getCompanyDetail
-} = require("../logic/company");
+  getcomment,
+  insertcomment,
+  updatecomment,
+  deletecomment
+} = require("../logic/comment");
 
 module.exports = function (app, connection) {
   /**
@@ -20,52 +19,41 @@ module.exports = function (app, connection) {
 
 
   // endpoints
-  app.get("/api/company", isAuth, async (req, res) => {
+  app.get("/api/comment", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /company [get]`);
+      logger.info(`${req.ip} /comment [get]`);
 
-      getCompany(req, res, connection);
+      getcomment(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });
     }
   });
 
-  app.get("/api/company/:id", isAuth, async (req, res) => {
+  app.post("/api/comment", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /company [get]`);
-
-      getCompanyDetail(req, res, connection);
+      logger.info(`${req.ip} /comment [post]`);
+      insertcomment(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });
     }
   });
 
-  app.post("/api/company", isAuth, async (req, res) => {
+  app.put("/api/comment", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /company [post]`);
-      insertCompany(req, res, connection);
+      logger.info(`${req.ip} /comment [put]`);
+      updatecomment(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });
     }
   });
 
-  app.put("/api/company", isAuth, async (req, res) => {
+  app.delete("/api/comment", isAuth, async (req, res) => {
     try {
-      logger.info(`${req.ip} /company [put]`);
-      updateCompany(req, res, connection);
-    } catch (err) {
-      logger.error(`${req.ip} ${err}`);
-      res.status(500).json({ error: err.message });
-    }
-  });
-
-  app.delete("/api/company", isAuth, async (req, res) => {
-    try {
-      logger.info(`${req.ip} /company [delete]`);
-      deleteCompany(req, res, connection);
+      logger.info(`${req.ip} /comment [delete]`);
+      deletecomment(req, res, connection);
     } catch (err) {
       logger.error(`${req.ip} ${err}`);
       res.status(500).json({ error: err.message });
